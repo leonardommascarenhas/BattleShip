@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+}
+
+.pixel {
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  border: 1px solid black;
+}
+.gameBoard {
+  width: 80%;
+  height: 80%;
+  display: grid;
+  background-color: white;
+}
+
+.fleet {
+  display: flex;
+  gap: 30px;
+}
