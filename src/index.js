@@ -19,12 +19,8 @@ const gameBoard = (size) => {
   let ammount = size * size;
   const boardArray = [...Array(ammount).keys()];
   let gameBoard = document.querySelector(".gameBoard");
-  gameBoard.style.gridTemplateColumns = `repeat(${size}, 40px)`;
-  gameBoard.style.gridTemplateRows = `repeat(${size}, 40px)`;
-  const receiveAttack = (e) => {
-    if (e.target.boardArray) {
-    }
-  };
+  gameBoard.style.gridTemplateColumns = `repeat(${size}, 35px)`;
+  gameBoard.style.gridTemplateRows = `repeat(${size}, 35px)`;
   for (let i = 0; i < ammount; i++) {
     let pixel = document.createElement("div");
     pixel.classList.add("pixel");
@@ -40,15 +36,16 @@ const gameBoard = (size) => {
 const createShip = (append, length) => {
   let container = document.createElement("div");
   const a = ship(length);
-  console.log(a);
   for (let i = 0; i < length; i++) {
-    let pixel = document.createElement("div");
-    pixel.classList.add("pixel");
+    let square = document.createElement("div");
+    square.classList.add("square");
     a.shipSize[i] = " ";
-    pixel.innerHTML = a.shipSize[i];
-    container.appendChild(pixel);
+    square.innerHTML = a.shipSize[i];
+    container.appendChild(square);
   }
+  container.classList.add("ships");
   append.appendChild(container);
+  return a;
 };
 
 const fleet = () => {
@@ -60,6 +57,22 @@ const fleet = () => {
 };
 
 fleet();
-const a = gameBoard(12);
-
-console.log(a.boardArray);
+gameBoard(12);
+let ships = document.querySelectorAll(".ships");
+let pixels = document.querySelectorAll(".pixel");
+let gameboard = document.querySelector(".gameBoard");
+ships.forEach((ships) => {
+  ships.addEventListener("dragstart", () => {
+    ships.classList.add("dragging");
+  });
+  ships.addEventListener("dragend", () => {
+    ships.classList.remove("dragging");
+  });
+});
+pixels.forEach((pixel) => {
+  pixel.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    const draggable = document.querySelector(".dragging");
+    pixel.appendChild(draggable);
+  });
+});
